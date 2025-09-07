@@ -30,7 +30,7 @@ jobs:
 
       # 安装依赖
       - name: 安装依赖
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --no-symlinks
 
       # 构建
       - name: 构建
