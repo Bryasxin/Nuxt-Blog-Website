@@ -18,29 +18,26 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # 迁出
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 安装 Bun
       - name: 安装 Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      # 安装依赖
       - name: 安装依赖
         run: bun install --frozen-lockfile --no-symlinks
 
-      # 构建
       - name: 构建
         run: bun run generate
 
-      # 上传编译后的页面
-      - name: 上传
-        uses: actions/upload-artifact@v4
+      - name: 配置 Github Pages
+        uses: actions/configure-pages@v3
+
+      - name: 上传项目
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: ./.output/public
 
       # 发布
