@@ -4,5 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/content", "@nuxt/eslint"],
 
+  vite: {
+    base: "/nuxt-blog/",
+  },
+
+  app: {
+    baseURL: "/nuxt-blog/",
+  },
   srcDir: "app",
 });
