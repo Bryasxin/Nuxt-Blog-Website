@@ -2,7 +2,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "tsconfig.json": "tsconfig.*.json",
-    "package.json": "bun.lock, eslint.config.mjs, nuxt.config.ts"
+    "package.json": "bun.lock, eslint.config.mjs, nuxt.config.ts, content.config.ts"
   },
   "[vue]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
