@@ -1,1 +1,0 @@
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis excepturi magni odio autem accusantium accusamus architecto molestiae non tempora, expedita distinctio nisi similique. Quod, rem cumque. Animi fugit excepturi nemo.
