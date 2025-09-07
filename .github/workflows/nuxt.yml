@@ -38,7 +38,7 @@ jobs:
 
       # 上传编译后的页面
       - name: 上传
-        run: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           path: ./.public/output
 
