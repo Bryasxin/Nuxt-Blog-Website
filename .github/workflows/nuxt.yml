@@ -1,4 +1,4 @@
-name: 部署 Nuxt 到 GitHub Pages
+name: 发布页面
 
 on:
   push:
@@ -6,9 +6,13 @@ on:
   workflow_dispatch: # 允许手动触发
 
 jobs:
-  build-deploy:
+  pages:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
+      # 迁出
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -18,34 +22,17 @@ jobs:
         with:
           bun-version: latest
 
-      # 缓存依赖
-      - name: 缓存项目依赖
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.bun
-            node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
-
       # 安装依赖
       - name: 安装依赖
-        run: bun install
+        run: bun install --frozen-lockfile
 
-      # 设置 GitHub Pages 环境变量
-      - name: 设置 GitHub Pages 环境变量
-        run: |
-          echo "GITHUB_PAGES=true" >> $GITHUB_ENV
-          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-
-      # 构建 Nuxt 项目
-      - name: 构建 Nuxt 项目
+      # 构建
+      - name: 构建
         run: bun run generate
 
-      # 部署到 GitHub Pages
-      - name: 部署到 GitHub Pages
+      # 发布
+      - name: 发布
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITEE_TOKEN }}
           publish_dir: ./.output/public
-          keep_files: true # 保留历史文件
-          force_orphan: false
