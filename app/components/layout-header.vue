@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const links = headerLinks()
+const links = headerLinks();
 </script>
 
 <template>
@@ -12,7 +12,6 @@ const links = headerLinks()
     </div>
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .root {

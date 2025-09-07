@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-const links = friendLinks()
+const links = friendLinks();
 </script>
 
 <style></style>
