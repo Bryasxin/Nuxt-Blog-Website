@@ -1,0 +1,51 @@
+name: 部署 Nuxt 到 GitHub Pages
+
+on:
+  push:
+    branches: [main] # 触发分支
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 安装 Bun
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      # 缓存依赖
+      - name: 缓存项目依赖
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+
+      # 安装依赖
+      - name: 安装依赖
+        run: bun install
+
+      # 设置 GitHub Pages 环境变量
+      - name: 设置 GitHub Pages 环境变量
+        run: |
+          echo "GITHUB_PAGES=true" >> $GITHUB_ENV
+          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+      # 构建 Nuxt 项目
+      - name: 构建 Nuxt 项目
+        run: bun run generate
+
+      # 部署到 GitHub Pages
+      - name: 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.output/public
+          keep_files: true # 保留历史文件
+          force_orphan: false
