@@ -1,16 +1,13 @@
-<template>
-  <div>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero error praesentium nesciunt eveniet quidem repellat
-      cum autem quaerat libero incidunt possimus repellendus pariatur nulla iusto, fugit reprehenderit voluptatem
-      officia
-      facere!
-    </p>
-  </div>
-</template>
+<script setup lang="ts">
+const { data } = await useAsyncData(() => queryCollection('content').path('/').first())
 
-<script lang="ts" setup>
-
+useSeoMeta({
+  title: data.value?.title,
+  description: data.value?.description
+})
 </script>
 
-<style></style>
+<template>
+  <ContentRenderer v-if="data" :value="data" />
+  <div v-else>Home not found</div>
+</template>
