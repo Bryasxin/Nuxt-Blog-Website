@@ -40,7 +40,7 @@ jobs:
       - name: 上传
         uses: actions/upload-artifact@v4
         with:
-          path: ./.public/output
+          path: ./.output/public
 
       # 发布
       - name: 发布
